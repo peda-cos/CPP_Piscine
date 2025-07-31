@@ -6,18 +6,18 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 20:30:45 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/07/31 08:05:26 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:27:17 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
-#define PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
-#include "Contact.hpp"
+# include "Contact.hpp"
 
 class PhoneBook
 {
-private:
+  private:
 	static const int MAX_CONTACTS = 8;
 	Contact contacts[MAX_CONTACTS];
 	int count;
@@ -27,7 +27,7 @@ private:
 	void displayHeader() const;
 	void displayContactRow(int index) const;
 
-public:
+  public:
 	PhoneBook();
 
 	void addContact(const Contact &contact);
