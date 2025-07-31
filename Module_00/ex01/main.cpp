@@ -6,12 +6,13 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 07:57:19 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/07/31 08:07:12 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/07/31 08:39:40 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include "PhoneBook.hpp"
 
 std::string getInput(const std::string &prompt)
