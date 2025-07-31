@@ -6,37 +6,39 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 08:01:30 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/07/31 08:18:48 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:25:51 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-Contact::Contact() {}
+Contact::Contact()
+{
+}
 
 std::string Contact::getFirstName() const
 {
-	return firstName;
+	return (firstName);
 }
 
 std::string Contact::getLastName() const
 {
-	return lastName;
+	return (lastName);
 }
 
 std::string Contact::getNickname() const
 {
-	return nickname;
+	return (nickname);
 }
 
 std::string Contact::getPhoneNumber() const
 {
-	return phoneNumber;
+	return (phoneNumber);
 }
 
 std::string Contact::getDarkestSecret() const
 {
-	return darkestSecret;
+	return (darkestSecret);
 }
 
 void Contact::setFirstName(const std::string &firstName)
@@ -66,6 +68,6 @@ void Contact::setDarkestSecret(const std::string &darkestSecret)
 
 bool Contact::isComplete() const
 {
-	return !firstName.empty() && !lastName.empty() && !nickname.empty() &&
-		   !phoneNumber.empty() && !darkestSecret.empty();
+	return (!firstName.empty() && !lastName.empty() && !nickname.empty()
+		&& !phoneNumber.empty() && !darkestSecret.empty());
 }
