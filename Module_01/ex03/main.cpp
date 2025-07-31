@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 15:15:52 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/07/31 15:31:45 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:21:54 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "HumanB.hpp"
 #include "Weapon.hpp"
 
-int main()
+int main(void)
 {
     {
         Weapon club = Weapon("crude spiked club");
