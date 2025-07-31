@@ -6,7 +6,7 @@
 #    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 15:20:20 by peda-cos          #+#    #+#              #
-#    Updated: 2025/07/31 08:32:16 by peda-cos         ###   ########.fr        #
+#    Updated: 2025/07/31 08:44:22 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS = $(SRCS:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 	@echo "ACCOUNT ready to use!"
 
 %.o: %.cpp Account.hpp
@@ -27,7 +27,7 @@ $(NAME): $(OBJS)
 	@echo "Compiling $<..."
 
 clean:
-	@rm -f $(OBJECTS)
+	@rm -f $(OBJS)
 	@echo "Object file cleaned."
 
 fclean: clean
