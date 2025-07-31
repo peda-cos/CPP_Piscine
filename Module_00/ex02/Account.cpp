@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 08:29:54 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/07/31 08:34:19 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/07/31 10:40:25 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int Account::_totalNbWithdrawals = 0;
 
 void Account::_displayTimestamp(void)
 {
-	std::time_t currentTime = std::time(nullptr);
+	std::time_t currentTime = std::time(0);
 	std::tm *localTime = std::localtime(&currentTime);
 
 	std::cout << "[";
