@@ -6,7 +6,7 @@
 #    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 15:20:20 by peda-cos          #+#    #+#              #
-#    Updated: 2025/08/29 20:03:07 by peda-cos         ###   ########.fr        #
+#    Updated: 2025/08/30 10:22:03 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 	@echo "Serena, my love!"
 
-%.o: %.cpp ClapTrap.hpp
+%.o: %.cpp ClapTrap.hpp ScavTrap.hpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiling $<..."
 
