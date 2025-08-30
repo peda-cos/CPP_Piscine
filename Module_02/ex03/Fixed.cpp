@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 09:42:30 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/01 10:11:30 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/08/30 09:56:26 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,24 @@
 
 Fixed::Fixed() : _fixedPointValue(0)
 {
-	std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int int_val) : _fixedPointValue(int_val << _fractionalBits)
 {
-	std::cout << "Int constructor called" << std::endl;
 }
 
 Fixed::Fixed(const float float_val) : _fixedPointValue(roundf(float_val
 		* (1 << _fractionalBits)))
 {
-	std::cout << "Float constructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed &other)
 {
-	std::cout << "Copy constructor called" << std::endl;
 	*this = other;
 }
 
 Fixed &Fixed::operator=(const Fixed &other)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
 		this->_fixedPointValue = other.getRawBits();
@@ -46,7 +41,6 @@ Fixed &Fixed::operator=(const Fixed &other)
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called" << std::endl;
 }
 
 int Fixed::getRawBits(void) const
