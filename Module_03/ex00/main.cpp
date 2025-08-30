@@ -6,12 +6,11 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 09:49:13 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/02 09:58:53 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/08/30 10:14:41 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
-#include <iostream>
 
 int	main(void)
 {
