@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 21:51:54 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/29 21:51:57 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:09:46 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ WrongCat::WrongCat() {
 
 WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other) {
     std::cout << "[WrongCat] Copy constructor" << std::endl;
-    *this = other;
 }
 
 WrongCat& WrongCat::operator=(const WrongCat& other) {
