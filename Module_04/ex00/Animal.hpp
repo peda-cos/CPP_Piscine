@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 21:47:07 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/08/31 12:26:27 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:25:38 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Animal
 	Animal &operator=(const Animal &other);
 	virtual ~Animal();
 
-	virtual void makeSound() const = 0;
+	virtual void makeSound() const;
 	std::string getType() const;
 };
 
