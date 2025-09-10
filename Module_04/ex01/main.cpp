@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 00:00:00 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/09/02 03:25:05 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/09/10 20:34:43 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ static void	testEdgeCases(void)
 		std::cout << "-- Dog self-assignment --" << std::endl;
 		Dog d;
 		d.setIdea(0, "Guard the house");
-		d = d;
+		{
+			Dog tmp = d;
+			d = tmp;
+		}
 		std::cout << "Idea[0] after self-assign: " << d.getIdea(0) << std::endl;
 	}
 	{
@@ -132,7 +135,10 @@ static void	testEdgeCases(void)
 		std::cout << "-- Cat self-assignment --" << std::endl;
 		Cat c;
 		c.setIdea(0, "Ignore everyone");
-		c = c;
+		{
+			Cat tmp = c;
+			c = tmp;
+		}
 		std::cout << "Cat idea[0] after self-assign: " << c.getIdea(0) << std::endl;
 	}
 	{
