@@ -6,7 +6,7 @@
 #    By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 15:20:20 by peda-cos          #+#    #+#              #
-#    Updated: 2025/09/14 17:31:13 by peda-cos         ###   ########.fr        #
+#    Updated: 2025/09/14 17:35:46 by peda-cos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
-	@echo "I don't want to set the world on fire"
+	@echo "Abstract class"
 
 %.o: %.cpp Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp Brain.hpp
 	@$(CC) $(CFLAGS) -c $< -o $@
