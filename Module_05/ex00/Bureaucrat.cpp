@@ -6,7 +6,7 @@
 /*   By: peda-cos <peda-cos@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 02:46:18 by peda-cos          #+#    #+#             */
-/*   Updated: 2025/12/23 03:09:07 by peda-cos         ###   ########.fr       */
+/*   Updated: 2025/12/23 03:26:05 by peda-cos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,21 @@ int	Bureaucrat::getGrade(void) const {
 	return _grade;
 }
 
+void	Bureaucrat::incrementGrade(void) {
+	if (_grade - 1 < HIGHEST_GRADE)
+		throw GradeTooHighException();
+	_grade--;
+}
+
+void	Bureaucrat::decrementGrade(void) {
+	if (_grade + 1 > LOWEST_GRADE)
+		throw GradeTooLowException();
+	_grade++;
+}
+
 const char*	Bureaucrat::GradeTooHighException::what() const throw() {
 	return "grade is too high!";
 }
-
 
 const char*	Bureaucrat::GradeTooLowException::what() const throw() {
 	return "grade is too low!";
