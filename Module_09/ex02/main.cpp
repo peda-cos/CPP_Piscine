@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
 	try
 	{
 		PmergeMe sorter;
-		sorter.parseInput(argc, argv);
+		sorter.parseInputArguments(argc, argv);
 
 		std::cout << "Before:";
 		const std::vector<int>& original = sorter.getVector();
