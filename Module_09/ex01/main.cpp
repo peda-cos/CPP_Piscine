@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	try
 	{
 		RPN rpn;
-		double result = rpn.evaluate(argv[1]);
+		double result = rpn.evaluateExpression(argv[1]);
 		std::cout << result << std::endl;
 	}
 	catch (const std::exception& e)

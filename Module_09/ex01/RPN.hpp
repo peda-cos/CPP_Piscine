@@ -8,11 +8,11 @@
 class RPN
 {
 private:
-	std::stack<double> _stack;
+	std::stack<double> _operandStack;
 
-	bool isOperator(char c) const;
-	bool isDigit(char c) const;
-	double applyOperator(double a, double b, char op) const;
+	bool isOperatorToken(char token) const;
+	bool isSingleDigit(char token) const;
+	double evaluateBinaryOperation(double leftOperand, double rightOperand, char op) const;
 
 public:
 	RPN();
@@ -20,7 +20,7 @@ public:
 	RPN& operator=(const RPN& other);
 	~RPN();
 
-	double evaluate(const std::string& expression);
+	double evaluateExpression(const std::string& expression);
 
 	class InvalidExpressionException : public std::exception
 	{

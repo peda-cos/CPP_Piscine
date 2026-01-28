@@ -6,7 +6,7 @@ RPN::RPN()
 {
 }
 
-RPN::RPN(const RPN& other) : _stack(other._stack)
+RPN::RPN(const RPN& other) : _operandStack(other._operandStack)
 {
 }
 
@@ -14,7 +14,7 @@ RPN& RPN::operator=(const RPN& other)
 {
 	if (this != &other)
 	{
-		_stack = other._stack;
+		_operandStack = other._operandStack;
 	}
 	return *this;
 }
@@ -23,42 +23,42 @@ RPN::~RPN()
 {
 }
 
-bool RPN::isOperator(char c) const
+bool RPN::isOperatorToken(char token) const
 {
-	return c == '+' || c == '-' || c == '*' || c == '/';
+	return token == '+' || token == '-' || token == '*' || token == '/';
 }
 
-bool RPN::isDigit(char c) const
+bool RPN::isSingleDigit(char token) const
 {
-	return c >= '0' && c <= '9';
+	return token >= '0' && token <= '9';
 }
 
-double RPN::applyOperator(double a, double b, char op) const
+double RPN::evaluateBinaryOperation(double leftOperand, double rightOperand, char op) const
 {
 	switch (op)
 	{
 		case '+':
-			return a + b;
+			return leftOperand + rightOperand;
 		case '-':
-			return a - b;
+			return leftOperand - rightOperand;
 		case '*':
-			return a * b;
+			return leftOperand * rightOperand;
 		case '/':
-			if (b == 0)
+			if (rightOperand == 0)
 			{
 				throw DivisionByZeroException();
 			}
-			return a / b;
+			return leftOperand / rightOperand;
 		default:
 			throw InvalidExpressionException();
 	}
 }
 
-double RPN::evaluate(const std::string& expression)
+double RPN::evaluateExpression(const std::string& expression)
 {
-	while (!_stack.empty())
+	while (!_operandStack.empty())
 	{
-		_stack.pop();
+		_operandStack.pop();
 	}
 
 	std::istringstream iss(expression);
@@ -66,21 +66,21 @@ double RPN::evaluate(const std::string& expression)
 
 	while (iss >> token)
 	{
-		if (token.length() == 1 && isDigit(token[0]))
+		if (token.length() == 1 && isSingleDigit(token[0]))
 		{
-			_stack.push(static_cast<double>(token[0] - '0'));
+			_operandStack.push(static_cast<double>(token[0] - '0'));
 		}
-		else if (token.length() == 1 && isOperator(token[0]))
+		else if (token.length() == 1 && isOperatorToken(token[0]))
 		{
-			if (_stack.size() < 2)
+			if (_operandStack.size() < 2)
 			{
 				throw InvalidExpressionException();
 			}
-			double b = _stack.top();
-			_stack.pop();
-			double a = _stack.top();
-			_stack.pop();
-			_stack.push(applyOperator(a, b, token[0]));
+			double rightOperand = _operandStack.top();
+			_operandStack.pop();
+			double leftOperand = _operandStack.top();
+			_operandStack.pop();
+			_operandStack.push(evaluateBinaryOperation(leftOperand, rightOperand, token[0]));
 		}
 		else
 		{
@@ -88,12 +88,12 @@ double RPN::evaluate(const std::string& expression)
 		}
 	}
 
-	if (_stack.size() != 1)
+	if (_operandStack.size() != 1)
 	{
 		throw InvalidExpressionException();
 	}
 
-	return _stack.top();
+	return _operandStack.top();
 }
 
 const char* RPN::InvalidExpressionException::what() const throw()
