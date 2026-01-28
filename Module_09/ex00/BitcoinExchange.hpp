@@ -8,16 +8,16 @@
 class BitcoinExchange
 {
 private:
-	std::map<std::string, double> _database;
-	static const std::string DATABASE_PATH;
+	std::map<std::string, double> _rateByDate;
+	static const std::string kDatabasePath;
 
-	void loadDatabase();
-	bool isValidDateFormat(const std::string& date) const;
+	void loadRateDatabase();
+	bool hasValidDateFormat(const std::string& date) const;
 	bool isValidDate(const std::string& date) const;
 	bool isLeapYear(int year) const;
-	double getExchangeRate(const std::string& date) const;
-	void parseLine(const std::string& line) const;
-	std::string trim(const std::string& str) const;
+	double findExchangeRateForDate(const std::string& date) const;
+	void processInputLine(const std::string& line) const;
+	std::string trimWhitespace(const std::string& text) const;
 
 public:
 	BitcoinExchange();

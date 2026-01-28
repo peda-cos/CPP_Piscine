@@ -5,14 +5,14 @@
 #include <cstdlib>
 #include <limits>
 
-const std::string BitcoinExchange::DATABASE_PATH = "data.csv";
+const std::string BitcoinExchange::kDatabasePath = "data.csv";
 
 BitcoinExchange::BitcoinExchange()
 {
-	loadDatabase();
+	loadRateDatabase();
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _database(other._database)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _rateByDate(other._rateByDate)
 {
 }
 
@@ -20,7 +20,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 {
 	if (this != &other)
 	{
-		_database = other._database;
+		_rateByDate = other._rateByDate;
 	}
 	return *this;
 }
@@ -29,9 +29,9 @@ BitcoinExchange::~BitcoinExchange()
 {
 }
 
-void BitcoinExchange::loadDatabase()
+void BitcoinExchange::loadRateDatabase()
 {
-	std::ifstream file(DATABASE_PATH.c_str());
+	std::ifstream file(kDatabasePath.c_str());
 	if (!file.is_open())
 	{
 		throw FileOpenException();
@@ -42,36 +42,36 @@ void BitcoinExchange::loadDatabase()
 
 	while (std::getline(file, line))
 	{
-		std::size_t commaPos = line.find(',');
-		if (commaPos == std::string::npos)
+		std::size_t commaPosition = line.find(',');
+		if (commaPosition == std::string::npos)
 		{
 			continue;
 		}
 
-		std::string date = line.substr(0, commaPos);
-		std::string rateStr = line.substr(commaPos + 1);
+		std::string dateText = line.substr(0, commaPosition);
+		std::string rateText = line.substr(commaPosition + 1);
 
-		char* endPtr;
-		double rate = std::strtod(rateStr.c_str(), &endPtr);
-		if (*endPtr != '\0' && *endPtr != '\r' && *endPtr != '\n')
+		char* parseEnd = NULL;
+		double rate = std::strtod(rateText.c_str(), &parseEnd);
+		if (*parseEnd != '\0' && *parseEnd != '\r' && *parseEnd != '\n')
 		{
 			continue;
 		}
 
-		_database[date] = rate;
+		_rateByDate[dateText] = rate;
 	}
 	file.close();
 }
 
-std::string BitcoinExchange::trim(const std::string& str) const
+std::string BitcoinExchange::trimWhitespace(const std::string& text) const
 {
-	std::size_t first = str.find_first_not_of(" \t\r\n");
+	std::size_t first = text.find_first_not_of(" \t\r\n");
 	if (first == std::string::npos)
 	{
 		return "";
 	}
-	std::size_t last = str.find_last_not_of(" \t\r\n");
-	return str.substr(first, last - first + 1);
+	std::size_t last = text.find_last_not_of(" \t\r\n");
+	return text.substr(first, last - first + 1);
 }
 
 bool BitcoinExchange::isLeapYear(int year) const
@@ -79,7 +79,7 @@ bool BitcoinExchange::isLeapYear(int year) const
 	return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
-bool BitcoinExchange::isValidDateFormat(const std::string& date) const
+bool BitcoinExchange::hasValidDateFormat(const std::string& date) const
 {
 	if (date.length() != 10)
 	{
@@ -105,7 +105,7 @@ bool BitcoinExchange::isValidDateFormat(const std::string& date) const
 
 bool BitcoinExchange::isValidDate(const std::string& date) const
 {
-	if (!isValidDateFormat(date))
+	if (!hasValidDateFormat(date))
 	{
 		return false;
 	}
@@ -137,16 +137,16 @@ bool BitcoinExchange::isValidDate(const std::string& date) const
 	return true;
 }
 
-double BitcoinExchange::getExchangeRate(const std::string& date) const
+double BitcoinExchange::findExchangeRateForDate(const std::string& date) const
 {
-	std::map<std::string, double>::const_iterator it = _database.find(date);
-	if (it != _database.end())
+	std::map<std::string, double>::const_iterator it = _rateByDate.find(date);
+	if (it != _rateByDate.end())
 	{
 		return it->second;
 	}
 
-	it = _database.lower_bound(date);
-	if (it == _database.begin())
+	it = _rateByDate.lower_bound(date);
+	if (it == _rateByDate.begin())
 	{
 		throw DateTooEarlyException();
 	}
@@ -154,30 +154,30 @@ double BitcoinExchange::getExchangeRate(const std::string& date) const
 	return it->second;
 }
 
-void BitcoinExchange::parseLine(const std::string& line) const
+void BitcoinExchange::processInputLine(const std::string& line) const
 {
-	std::size_t pipePos = line.find('|');
-	if (pipePos == std::string::npos)
+	std::size_t pipePosition = line.find('|');
+	if (pipePosition == std::string::npos)
 	{
 		throw InvalidDateException(line);
 	}
 
-	std::string date = trim(line.substr(0, pipePos));
-	std::string valueStr = trim(line.substr(pipePos + 1));
+	std::string dateText = trimWhitespace(line.substr(0, pipePosition));
+	std::string valueText = trimWhitespace(line.substr(pipePosition + 1));
 
-	if (!isValidDate(date))
+	if (!isValidDate(dateText))
 	{
 		throw InvalidDateException(line);
 	}
 
-	if (valueStr.empty())
+	if (valueText.empty())
 	{
 		throw InvalidDateException(line);
 	}
 
-	char* endPtr;
-	double value = std::strtod(valueStr.c_str(), &endPtr);
-	if (*endPtr != '\0')
+	char* parseEnd = NULL;
+	double value = std::strtod(valueText.c_str(), &parseEnd);
+	if (*parseEnd != '\0')
 	{
 		throw InvalidDateException(line);
 	}
@@ -192,10 +192,10 @@ void BitcoinExchange::parseLine(const std::string& line) const
 		throw ValueTooLargeException();
 	}
 
-	double rate = getExchangeRate(date);
-	double result = value * rate;
+	double exchangeRate = findExchangeRateForDate(dateText);
+	double result = value * exchangeRate;
 
-	std::cout << date << " => " << value << " = " << result << std::endl;
+	std::cout << dateText << " => " << value << " = " << result << std::endl;
 }
 
 void BitcoinExchange::processInputFile(const std::string& filename) const
@@ -214,21 +214,21 @@ void BitcoinExchange::processInputFile(const std::string& filename) const
 		if (firstLine)
 		{
 			firstLine = false;
-			std::string trimmedLine = trim(line);
+			std::string trimmedLine = trimWhitespace(line);
 			if (trimmedLine == "date | value" || trimmedLine.empty())
 			{
 				continue;
 			}
 		}
 
-		if (trim(line).empty())
+		if (trimWhitespace(line).empty())
 		{
 			continue;
 		}
 
 		try
 		{
-			parseLine(line);
+			processInputLine(line);
 		}
 		catch (const InvalidDateException& e)
 		{
